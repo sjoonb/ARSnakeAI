@@ -9,6 +9,7 @@ import UIKit
 import QuartzCore
 import SceneKit
 
+
 class GameViewController: UIViewController {
     
     var gameController: GameController = GameController()
@@ -57,6 +58,14 @@ class GameViewController: UIViewController {
         // configure the view
         scnView.backgroundColor = UIColor.black
         
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft(_:)))
+        swipeLeft.direction = .left
+        scnView.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight(_:)))
+        swipeRight.direction = .right
+        scnView.addGestureRecognizer(swipeRight)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,6 +88,17 @@ class GameViewController: UIViewController {
         } else {
             return .all
         }
+    }
+    
+    @objc
+    func swipeLeft(_ sender: Any) {
+        gameController.turnLeft()
+    }
+    
+    @objc
+    func swipeRight(_ sender: Any) {
+        gameController.turnRight()
+        
     }
 
 }

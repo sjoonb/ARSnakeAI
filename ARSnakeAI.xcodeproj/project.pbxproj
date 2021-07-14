@@ -18,6 +18,11 @@
 		DE6268AF269C9DF100FDAEC9 /* snakeBody.scn in Resources */ = {isa = PBXBuildFile; fileRef = DE6268AE269C9DF100FDAEC9 /* snakeBody.scn */; };
 		DE6268B1269C9DF600FDAEC9 /* wall-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = DE6268B0269C9DF600FDAEC9 /* wall-shadow.png */; };
 		DE6268B3269C9DFB00FDAEC9 /* snake-body-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = DE6268B2269C9DFB00FDAEC9 /* snake-body-shadow.png */; };
+		DE63F11F269DBE4500CCCFF9 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE63F11E269DBE4500CCCFF9 /* Food.swift */; };
+		DE63F121269DC46000CCCFF9 /* mushroom.scn in Resources */ = {isa = PBXBuildFile; fileRef = DE63F120269DC46000CCCFF9 /* mushroom.scn */; };
+		DE63F123269DE97200CCCFF9 /* Population.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE63F122269DE97200CCCFF9 /* Population.swift */; };
+		DEE68E8F269F010700AA15C8 /* NeuralNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE68E8E269F010700AA15C8 /* NeuralNet.swift */; };
+		DEE68E91269F03CF00AA15C8 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE68E90269F03CF00AA15C8 /* Matrix.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +39,11 @@
 		DE6268AE269C9DF100FDAEC9 /* snakeBody.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = snakeBody.scn; sourceTree = "<group>"; };
 		DE6268B0269C9DF600FDAEC9 /* wall-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wall-shadow.png"; sourceTree = "<group>"; };
 		DE6268B2269C9DFB00FDAEC9 /* snake-body-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snake-body-shadow.png"; sourceTree = "<group>"; };
+		DE63F11E269DBE4500CCCFF9 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		DE63F120269DC46000CCCFF9 /* mushroom.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = mushroom.scn; sourceTree = "<group>"; };
+		DE63F122269DE97200CCCFF9 /* Population.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Population.swift; sourceTree = "<group>"; };
+		DEE68E8E269F010700AA15C8 /* NeuralNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuralNet.swift; sourceTree = "<group>"; };
+		DEE68E90269F03CF00AA15C8 /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +79,7 @@
 				DE626894269C8BB500FDAEC9 /* AppDelegate.swift */,
 				DE626898269C8BB500FDAEC9 /* GameViewController.swift */,
 				DE6268A7269C94BA00FDAEC9 /* GameController.swift */,
-				DE6268A9269C972600FDAEC9 /* Snake.swift */,
+				DE63F11D269DBE3A00CCCFF9 /* SnakeAI */,
 				DE6268AB269C9DDE00FDAEC9 /* common scenekit assets */,
 				DE6268A5269C8BF700FDAEC9 /* main.scn */,
 				DE62689A269C8BB500FDAEC9 /* Main.storyboard */,
@@ -85,9 +95,22 @@
 				DE6268B2269C9DFB00FDAEC9 /* snake-body-shadow.png */,
 				DE6268B0269C9DF600FDAEC9 /* wall-shadow.png */,
 				DE6268AE269C9DF100FDAEC9 /* snakeBody.scn */,
+				DE63F120269DC46000CCCFF9 /* mushroom.scn */,
 				DE6268AC269C9DEC00FDAEC9 /* worldScene.scn */,
 			);
 			path = "common scenekit assets";
+			sourceTree = "<group>";
+		};
+		DE63F11D269DBE3A00CCCFF9 /* SnakeAI */ = {
+			isa = PBXGroup;
+			children = (
+				DE6268A9269C972600FDAEC9 /* Snake.swift */,
+				DE63F11E269DBE4500CCCFF9 /* Food.swift */,
+				DE63F122269DE97200CCCFF9 /* Population.swift */,
+				DEE68E8E269F010700AA15C8 /* NeuralNet.swift */,
+				DEE68E90269F03CF00AA15C8 /* Matrix.swift */,
+			);
+			path = SnakeAI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE63F121269DC46000CCCFF9 /* mushroom.scn in Resources */,
 				DE62689E269C8BB600FDAEC9 /* Assets.xcassets in Resources */,
 				DE62689C269C8BB500FDAEC9 /* Main.storyboard in Resources */,
 				DE6268AD269C9DEC00FDAEC9 /* worldScene.scn in Resources */,
@@ -164,10 +188,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE63F123269DE97200CCCFF9 /* Population.swift in Sources */,
 				DE6268AA269C972600FDAEC9 /* Snake.swift in Sources */,
 				DE626899269C8BB500FDAEC9 /* GameViewController.swift in Sources */,
+				DE63F11F269DBE4500CCCFF9 /* Food.swift in Sources */,
+				DEE68E91269F03CF00AA15C8 /* Matrix.swift in Sources */,
 				DE6268A8269C94BA00FDAEC9 /* GameController.swift in Sources */,
 				DE626895269C8BB500FDAEC9 /* AppDelegate.swift in Sources */,
+				DEE68E8F269F010700AA15C8 /* NeuralNet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
