@@ -18,11 +18,11 @@ enum SnakeDirection: Int {
     var asInt2: PVector {
         switch self {
         case .up:
-            return PVector(x: 0, y: 1)
+            return PVector(x: 0, y: -1)
         case .right:
             return PVector(x: 1, y: 0)
         case .down:
-            return PVector(x: 0, y: -1)
+            return PVector(x: 0, y: 1)
         case .left:
             return PVector(x: -1, y: 0)
         }
@@ -49,7 +49,7 @@ class SnakeNode: SCNNode {
 }
 
 class Snake: SCNNode {
-    var sceneSize = 15
+    var sceneSize = 38
     
     var direction: SnakeDirection = .down
     
@@ -76,9 +76,8 @@ class Snake: SCNNode {
     var hiddenNodes: Int = 16
     var hiddenLayers: Int = 2
     
-    var lifeLeft = 50
+    var lifeLeft = 200
     var lifeTime = 0
-
     
     override init() {
         super.init()
@@ -92,6 +91,17 @@ class Snake: SCNNode {
         
         headNode = SnakeNode(pos: head)
         addChildNode(headNode)
+        
+        if(!humanPlaying) {    
+            body.append(PVector(0, 1))
+            body.append(PVector(0, 2))
+            body.forEach { pos in
+                let snakeNode = SnakeNode(pos: pos)
+                addChildNode(snakeNode)
+                bodyNodes.append(snakeNode)
+            }
+            moveUp()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -102,7 +112,7 @@ class Snake: SCNNode {
     func move() {
         if(!dead) {
             shiftBody()
-            if(!humanPlaying) {
+            if(!humanPlaying && !modelPlaying) {
                 lifeTime += 1
                 lifeLeft -= 1
             }
@@ -281,13 +291,6 @@ class Snake: SCNNode {
             }
         }
         
-        func turnLeft() {
-            let t = (direction.rawValue + 1) % 4
-            direction = SnakeDirection(rawValue: t)!
-            xVel = direction.asInt2.x
-            yVel = direction.asInt2.y
-        }
-        
         switch maxIndex {
         case 0:
             moveUp()
@@ -300,20 +303,11 @@ class Snake: SCNNode {
         default:
             break
         }
-        
-//        let rand = Int.random(in: 0..<2)
-//        switch rand {
-//        case 0:
-//            turnLeft()
-//
-//        case 1:
-//            turnRight()
-//
-//        default:
-//            break
-//
-//        }
+    
     }
+
+    
+    //MARK: - Snake's move
     
     func moveUp() {
         if(direction != SnakeDirection.down) {

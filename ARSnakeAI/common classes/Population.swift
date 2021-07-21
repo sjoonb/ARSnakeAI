@@ -22,6 +22,10 @@ class Population: SCNNode {
         }
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func done() -> Bool {
         for i in 0..<snakes.count {
             if(!snakes[i].dead) {
@@ -48,8 +52,6 @@ class Population: SCNNode {
     func clear() {
         
     }
+
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }

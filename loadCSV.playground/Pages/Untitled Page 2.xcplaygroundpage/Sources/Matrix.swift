@@ -23,6 +23,12 @@ class Matrix {
         }
     }
     
+    init(m: [[Double]]) {
+        matrix = m
+        rows = matrix.count
+        cols = matrix[0].count
+    }
+    
     func randomize() {
         for i in 0..<rows {
             for j in 0..<cols {
@@ -89,4 +95,14 @@ class Matrix {
         return arr
     }
     
+    
+    func clone() -> Matrix {
+        let clone: Matrix = Matrix(r: rows, c: cols)
+        for i in 0..<rows {
+            for j in 0..<cols {
+                clone.matrix[i][j] = matrix[i][j]
+            }
+        }
+        return clone
+    }
 }

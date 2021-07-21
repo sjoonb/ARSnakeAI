@@ -43,4 +43,19 @@ class NeuralNet {
         
         return output.toArray()
     }
+    
+    func load(loadedWeights: [Matrix]) {
+        for i in 0..<weights.count {
+            weights[i] = loadedWeights[i]
+        }
+    }
+    
+    func clone() -> NeuralNet {
+        let clone: NeuralNet = NeuralNet(input: iNodes, hidden: hNodes, output: oNodes, hiddenLayers: hLayers)
+        for i in 0..<weights.count {
+            clone.weights[i] = weights[i].clone()
+        }
+        return clone
+    }
+    
 }

@@ -18,8 +18,8 @@ class Food: SCNNode {
             addChildNode(mushroomNode)
         }
         sceneSize = size
-        let x = Int32(arc4random() % UInt32((sceneSize - 1))) - 7
-        let y = Int32(arc4random() % UInt32((sceneSize - 1))) - 7
+        let x = Int32(arc4random() % UInt32((sceneSize))) - 18
+        let y = Int32(arc4random() % UInt32((sceneSize))) - 18
         pos = PVector(x, y)
         position =  SCNVector3(Float(pos.x), 0, Float(pos.y))
     }
