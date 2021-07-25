@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE3A9FE126AD7425007083D9 /* snakeHead.scn in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FE026AD7424007083D9 /* snakeHead.scn */; };
+		DE3A9FE226AD7437007083D9 /* snakeHead.scn in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FE026AD7424007083D9 /* snakeHead.scn */; };
+		DE3A9FE426AD7D61007083D9 /* snakeTail.scn in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FE326AD7D61007083D9 /* snakeTail.scn */; };
+		DE3A9FE526AD7D61007083D9 /* snakeTail.scn in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FE326AD7D61007083D9 /* snakeTail.scn */; };
+		DE3A9FE726AD8063007083D9 /* smoke-spread.scnp in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FE626AD8063007083D9 /* smoke-spread.scnp */; };
+		DE3A9FE826AD8063007083D9 /* smoke-spread.scnp in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FE626AD8063007083D9 /* smoke-spread.scnp */; };
+		DE3A9FEA26AD8068007083D9 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FE926AD8068007083D9 /* smoke.png */; };
+		DE3A9FEB26AD8068007083D9 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FE926AD8068007083D9 /* smoke.png */; };
+		DE3A9FED26AD8159007083D9 /* food-disappear.scnp in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FEC26AD8159007083D9 /* food-disappear.scnp */; };
+		DE3A9FEE26AD8159007083D9 /* food-disappear.scnp in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FEC26AD8159007083D9 /* food-disappear.scnp */; };
+		DE3A9FF026AD815E007083D9 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FEF26AD815E007083D9 /* bokeh.png */; };
+		DE3A9FF126AD815E007083D9 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3A9FEF26AD815E007083D9 /* bokeh.png */; };
 		DE626895269C8BB500FDAEC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE626894269C8BB500FDAEC9 /* AppDelegate.swift */; };
 		DE626899269C8BB500FDAEC9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE626898269C8BB500FDAEC9 /* GameViewController.swift */; };
 		DE62689C269C8BB500FDAEC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE62689A269C8BB500FDAEC9 /* Main.storyboard */; };
@@ -45,10 +57,20 @@
 		DED7F44326A84D4E005C4CFE /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED7F44126A84CF8005C4CFE /* Matrix.swift */; };
 		DED7F44626A84FE4005C4CFE /* lifeTime50_gen19.csv in Resources */ = {isa = PBXBuildFile; fileRef = DED7F44526A84FE4005C4CFE /* lifeTime50_gen19.csv */; };
 		DED7F44726A84FFD005C4CFE /* lifeTime50_gen19.csv in Resources */ = {isa = PBXBuildFile; fileRef = DED7F44526A84FE4005C4CFE /* lifeTime50_gen19.csv */; };
+		DED7F44926A857FE005C4CFE /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED7F44826A857FE005C4CFE /* Simulator.swift */; };
+		DED7F44A26A85984005C4CFE /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED7F44826A857FE005C4CFE /* Simulator.swift */; };
+		DED7F44F26A85D83005C4CFE /* gen22.csv in Resources */ = {isa = PBXBuildFile; fileRef = DED7F44E26A85D83005C4CFE /* gen22.csv */; };
+		DED7F45026A85D83005C4CFE /* gen22.csv in Resources */ = {isa = PBXBuildFile; fileRef = DED7F44E26A85D83005C4CFE /* gen22.csv */; };
 		DEE68E8F269F010700AA15C8 /* NeuralNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE68E8E269F010700AA15C8 /* NeuralNet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE3A9FE026AD7424007083D9 /* snakeHead.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = snakeHead.scn; sourceTree = "<group>"; };
+		DE3A9FE326AD7D61007083D9 /* snakeTail.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = snakeTail.scn; sourceTree = "<group>"; };
+		DE3A9FE626AD8063007083D9 /* smoke-spread.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = "smoke-spread.scnp"; sourceTree = "<group>"; };
+		DE3A9FE926AD8068007083D9 /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
+		DE3A9FEC26AD8159007083D9 /* food-disappear.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = "food-disappear.scnp"; sourceTree = "<group>"; };
+		DE3A9FEF26AD815E007083D9 /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
 		DE626891269C8BB500FDAEC9 /* ARSnakeAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARSnakeAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE626894269C8BB500FDAEC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE626898269C8BB500FDAEC9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +100,8 @@
 		DE63F122269DE97200CCCFF9 /* Population.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Population.swift; sourceTree = "<group>"; };
 		DED7F44126A84CF8005C4CFE /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = "loadCSV.playground/Pages/Untitled Page 2.xcplaygroundpage/Sources/Matrix.swift"; sourceTree = SOURCE_ROOT; };
 		DED7F44526A84FE4005C4CFE /* lifeTime50_gen19.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lifeTime50_gen19.csv; sourceTree = "<group>"; };
+		DED7F44826A857FE005C4CFE /* Simulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
+		DED7F44E26A85D83005C4CFE /* gen22.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gen22.csv; sourceTree = "<group>"; };
 		DEE68E8E269F010700AA15C8 /* NeuralNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuralNet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,7 +161,13 @@
 			children = (
 				DE6268B2269C9DFB00FDAEC9 /* snake-body-shadow.png */,
 				DE6268B0269C9DF600FDAEC9 /* wall-shadow.png */,
+				DE3A9FE926AD8068007083D9 /* smoke.png */,
+				DE3A9FEF26AD815E007083D9 /* bokeh.png */,
+				DE3A9FEC26AD8159007083D9 /* food-disappear.scnp */,
+				DE3A9FE626AD8063007083D9 /* smoke-spread.scnp */,
 				DE6268AE269C9DF100FDAEC9 /* snakeBody.scn */,
+				DE3A9FE026AD7424007083D9 /* snakeHead.scn */,
+				DE3A9FE326AD7D61007083D9 /* snakeTail.scn */,
 				DE63F120269DC46000CCCFF9 /* mushroom.scn */,
 				DE62D1F726A0674500DB4EDD /* worldScene.scn */,
 				DE62D1F526A0650E00DB4EDD /* worldScene2.scn */,
@@ -171,6 +201,7 @@
 				DE63F122269DE97200CCCFF9 /* Population.swift */,
 				DEE68E8E269F010700AA15C8 /* NeuralNet.swift */,
 				DED7F44126A84CF8005C4CFE /* Matrix.swift */,
+				DED7F44826A857FE005C4CFE /* Simulator.swift */,
 			);
 			path = "common classes";
 			sourceTree = "<group>";
@@ -179,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				DED7F44526A84FE4005C4CFE /* lifeTime50_gen19.csv */,
+				DED7F44E26A85D83005C4CFE /* gen22.csv */,
 			);
 			path = SnakeModel;
 			sourceTree = "<group>";
@@ -262,15 +294,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE63F121269DC46000CCCFF9 /* mushroom.scn in Resources */,
+				DE3A9FE726AD8063007083D9 /* smoke-spread.scnp in Resources */,
+				DED7F44F26A85D83005C4CFE /* gen22.csv in Resources */,
+				DE3A9FE426AD7D61007083D9 /* snakeTail.scn in Resources */,
 				DE62689E269C8BB600FDAEC9 /* Assets.xcassets in Resources */,
 				DE62689C269C8BB500FDAEC9 /* Main.storyboard in Resources */,
+				DE3A9FED26AD8159007083D9 /* food-disappear.scnp in Resources */,
 				DE6268B3269C9DFB00FDAEC9 /* snake-body-shadow.png in Resources */,
+				DE3A9FEA26AD8068007083D9 /* smoke.png in Resources */,
+				DE3A9FF026AD815E007083D9 /* bokeh.png in Resources */,
 				DE6268B1269C9DF600FDAEC9 /* wall-shadow.png in Resources */,
 				DE6268AF269C9DF100FDAEC9 /* snakeBody.scn in Resources */,
 				DE62D1F626A0650E00DB4EDD /* worldScene2.scn in Resources */,
 				DED7F44726A84FFD005C4CFE /* lifeTime50_gen19.csv in Resources */,
 				DE62D1F826A0674500DB4EDD /* worldScene.scn in Resources */,
 				DE6268A6269C8BF700FDAEC9 /* main.scn in Resources */,
+				DE3A9FE126AD7425007083D9 /* snakeHead.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,11 +322,18 @@
 				DE62D21A26A080E600DB4EDD /* art.scnassets in Resources */,
 				DE62D22426A080E600DB4EDD /* LaunchScreen.storyboard in Resources */,
 				DE62D23826A0825E00DB4EDD /* snakeBody.scn in Resources */,
+				DE3A9FE526AD7D61007083D9 /* snakeTail.scn in Resources */,
+				DE3A9FE226AD7437007083D9 /* snakeHead.scn in Resources */,
 				DE62D22126A080E600DB4EDD /* Assets.xcassets in Resources */,
 				DE62D23F26A082ED00DB4EDD /* arscene.scn in Resources */,
 				DE62D23B26A0826600DB4EDD /* worldScene2.scn in Resources */,
+				DE3A9FEE26AD8159007083D9 /* food-disappear.scnp in Resources */,
+				DED7F45026A85D83005C4CFE /* gen22.csv in Resources */,
+				DE3A9FEB26AD8068007083D9 /* smoke.png in Resources */,
+				DE3A9FF126AD815E007083D9 /* bokeh.png in Resources */,
 				DE62D23726A0825A00DB4EDD /* wall-shadow.png in Resources */,
 				DE62D21F26A080E600DB4EDD /* Main.storyboard in Resources */,
+				DE3A9FE826AD8063007083D9 /* smoke-spread.scnp in Resources */,
 				DE62D23A26A0826300DB4EDD /* worldScene.scn in Resources */,
 				DE62D23626A0825900DB4EDD /* snake-body-shadow.png in Resources */,
 			);
@@ -305,6 +351,7 @@
 				DED7F44226A84CF8005C4CFE /* Matrix.swift in Sources */,
 				DE626899269C8BB500FDAEC9 /* GameViewController.swift in Sources */,
 				DE63F11F269DBE4500CCCFF9 /* Food.swift in Sources */,
+				DED7F44926A857FE005C4CFE /* Simulator.swift in Sources */,
 				DE6268A8269C94BA00FDAEC9 /* GameController.swift in Sources */,
 				DE626895269C8BB500FDAEC9 /* AppDelegate.swift in Sources */,
 				DEE68E8F269F010700AA15C8 /* NeuralNet.swift in Sources */,
@@ -321,6 +368,7 @@
 				DE62D23026A0824600DB4EDD /* GameController.swift in Sources */,
 				DE62D23126A0824A00DB4EDD /* Snake.swift in Sources */,
 				DE62D23326A0824D00DB4EDD /* Population.swift in Sources */,
+				DED7F44A26A85984005C4CFE /* Simulator.swift in Sources */,
 				DE62D22D26A081F700DB4EDD /* HorizontalPlane.swift in Sources */,
 				DE62D22A26A0818900DB4EDD /* AppDelegate.swift in Sources */,
 				DE62D23226A0824B00DB4EDD /* Food.swift in Sources */,

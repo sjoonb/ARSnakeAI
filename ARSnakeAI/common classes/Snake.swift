@@ -32,13 +32,35 @@ enum SnakeDirection: Int {
 
 class SnakeNode: SCNNode {
     
-    init(pos: PVector) {
+    enum SegmentType: Int {
+        case head
+        case body
+        case tail
+    }
+    
+    init(pos: PVector, type: SegmentType = .body) {
         super.init()
-        if let scene = SCNScene(named: "snakeBody.scn") {
-            if let snakeBody = scene.rootNode.childNode(withName: "snakeBody", recursively: true) {
-                addChildNode(snakeBody)
+        switch type {
+        case .body:
+            if let scene = SCNScene(named: "snakeBody.scn") {
+                if let snakeBody = scene.rootNode.childNode(withName: "snakeBody", recursively: true) {
+                    addChildNode(snakeBody)
+                }
+            }
+        case .tail:
+            if let scene = SCNScene(named: "snakeTail.scn") {
+                if let snakeTail = scene.rootNode.childNode(withName: "snakeTail", recursively: true) {
+                    addChildNode(snakeTail)
+                }
+            }
+        case .head:
+            if let scene = SCNScene(named: "snakeHead.scn") {
+                if let snakeBody = scene.rootNode.childNode(withName: "snakeHead", recursively: true) {
+                    addChildNode(snakeBody)
+                }
             }
         }
+    
         position = SCNVector3(Float(pos.x), Float(0.5), Float(pos.y))
     }
     
@@ -53,6 +75,8 @@ class Snake: SCNNode {
     
     var direction: SnakeDirection = .down
     
+    var snakeMoved: Bool = false
+    
     var xVel: Int32 = 0
     var yVel: Int32 = 0
     
@@ -64,7 +88,22 @@ class Snake: SCNNode {
     
     var food: Food!
     
-    public var dead: Bool = false
+    public var dead: Bool = false {
+        didSet {
+            food.isHidden = true
+            let smoke = SCNNode()
+            addChildNode(smoke)
+            smoke.position = food.position
+            smoke.addParticleSystem(SCNParticleSystem(named: "smoke-spread", inDirectory: nil)!)
+            
+//            food.addParticleSystem(SCNParticleSystem(named: "crashed-snake", inDirectory: nil)!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                self.food.removeFromParentNode()
+                smoke.removeFromParentNode()
+            }
+            runCrashAnimation()
+        }
+    }
     
     // MARK: - Snake AI prpoerties
     
@@ -76,7 +115,7 @@ class Snake: SCNNode {
     var hiddenNodes: Int = 16
     var hiddenLayers: Int = 2
     
-    var lifeLeft = 200
+    var lifeLeft = 500
     var lifeTime = 0
     
     override init() {
@@ -89,18 +128,21 @@ class Snake: SCNNode {
         food = Food(size: sceneSize)
         addChildNode(food)
         
-        headNode = SnakeNode(pos: head)
+        headNode = SnakeNode(pos: head, type: .head)
         addChildNode(headNode)
         
-        if(!humanPlaying) {    
-            body.append(PVector(0, 1))
-            body.append(PVector(0, 2))
-            body.forEach { pos in
-                let snakeNode = SnakeNode(pos: pos)
-                addChildNode(snakeNode)
-                bodyNodes.append(snakeNode)
-            }
-            moveUp()
+        body.append(PVector(0, 1))
+        let bodyNode = SnakeNode(pos: body.last!)
+        addChildNode(bodyNode)
+        bodyNodes.append(bodyNode)
+        
+        body.append(PVector(0, 2))
+        let tailNode = SnakeNode(pos: body.last!, type: .tail)
+        addChildNode(tailNode)
+        bodyNodes.append(tailNode)
+        
+        if(!humanPlaying) {
+            snakeMoved = true
         }
     }
     
@@ -112,8 +154,7 @@ class Snake: SCNNode {
     func move() {
         if(!dead) {
             shiftBody()
-            if(!humanPlaying && !modelPlaying) {
-                lifeTime += 1
+            if(!humanPlaying) {
                 lifeLeft -= 1
             }
             if(foodCollide(x: head.x, y:head.y)) {
@@ -138,27 +179,78 @@ class Snake: SCNNode {
             node.position = SCNVector3(Float(pos.x), Float(0.5), Float(pos.y))
         }
         headNode.position = SCNVector3(Float(head.x), Float(0.5), Float(head.y))
+        updateHeadNode()
+        updateTailNode()
+    }
+    
+    fileprivate func updateHeadNode() {
+        switch direction {
+        case .right:
+            headNode.eulerAngles.y = Float.pi / 2
+        case .left:
+            headNode.eulerAngles.y = -Float.pi / 2
+        case .down:
+            headNode.eulerAngles.y = 0
+        case .up:
+            headNode.eulerAngles.y = -Float.pi
+        }
+    }
+    
+    fileprivate func updateTailNode() {
+        if let tailNode = bodyNodes.last, let tailPos = body.last {
+            let beforeTailPos = body[body.count - 2]
+            let dV = PVector(beforeTailPos.x - tailPos.x, beforeTailPos.y - tailPos.y)
+            if dV.x == 1 {
+                tailNode.eulerAngles.y = Float.pi / 2
+            } else if dV.x == -1 {
+                tailNode.eulerAngles.y = -Float.pi / 2
+            }
 
+            if dV.y == 1 {
+                tailNode.eulerAngles.y = 0
+            } else if dV.y == -1 {
+                tailNode.eulerAngles.y = Float.pi
+            }
+        }
     }
     
     func eat() {
+        if(!humanPlaying) {
+            if(lifeLeft < 500) {
+                if(lifeLeft > 400) {
+                    lifeLeft = 500
+                    
+                } else {
+                    lifeLeft += 100
+                }
+            }
+        }
+        
+        
+        // Configure tail node to last node
+
+        
+        let tailPos = body.popLast()
+        let tailNode = bodyNodes.popLast()
+        
         let len = body.count-1
         var pos: PVector
         var snakeNode: SnakeNode
-        if(len >= 0) {
-            pos = PVector(body[len].x, body[len].y)
-        } else {
-            pos = PVector(head.x, head.y)
-        }
+
+        pos = PVector(body[len].x, body[len].y)
         body.append(pos)
         snakeNode = SnakeNode(pos: pos)
         addChildNode(snakeNode)
         bodyNodes.append(snakeNode)
         
+        body.append(tailPos!)
+        bodyNodes.append(tailNode!)
+        
+        
         food.removeFromParentNode()
         food = Food(size: sceneSize)
         addChildNode(food)
-        
+
 
     }
     
@@ -189,30 +281,41 @@ class Snake: SCNNode {
         var cy: Int32 = head.y
         head.x += xVel;
         head.y += yVel;
-        var nx: Int32
-        var ny: Int32
-        for i in 0..<body.count {
-            nx = body[i].x
-            ny = body[i].y
-            body[i].x = cx;
-            body[i].y = cy;
-            cx = nx
-            cy = ny
+        if(snakeMoved) {
+            var nx: Int32
+            var ny: Int32
+            for i in 0..<body.count {
+                nx = body[i].x
+                ny = body[i].y
+                body[i].x = cx;
+                body[i].y = cy;
+                cx = nx
+                cy = ny
+            }
         }
     }
     
     func turnLeft() {
-        let t = (direction.rawValue + 1) % 4
-        direction = SnakeDirection(rawValue: t)!
-        xVel = direction.asInt2.x
-        yVel = direction.asInt2.y
-    }
-    
-    func turnRight() {
         let t = (direction.rawValue - 1 + 4) % 4
         direction = SnakeDirection(rawValue: t)!
         xVel = direction.asInt2.x
         yVel = direction.asInt2.y
+        snakeMoved = true
+    }
+    
+    func turnRight() {
+        let t = (direction.rawValue + 1) % 4
+        direction = SnakeDirection(rawValue: t)!
+        xVel = direction.asInt2.x
+        yVel = direction.asInt2.y
+        snakeMoved = true
+    }
+    
+    func runCrashAnimation() {
+        if let headNode = self.headNode,
+            let particle = SCNParticleSystem(named: "smoke-spread", inDirectory: nil) {
+                headNode.addParticleSystem(particle)
+        }
     }
     
     // MARK: - AI Method

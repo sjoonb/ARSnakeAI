@@ -48,10 +48,6 @@ class Population: SCNNode {
             snakes[i].show()
         }
     }
-    
-    func clear() {
-        
-    }
 
     
 }

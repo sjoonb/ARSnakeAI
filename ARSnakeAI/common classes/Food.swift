@@ -28,9 +28,5 @@ class Food: SCNNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("not implemented")
     }
-    
-    func show() {
-        
-    }
 
 }

@@ -18,8 +18,12 @@ final class GameController {
 
     var snake: Snake!
     var model: Snake!
+    
+    var sim: Simulator!
     var pop: Population!
+    
     var popSize: Int = 1
+    var simSize: Int = 3
     
     // MARK: - Game Lifecycle
     init() {
@@ -38,7 +42,9 @@ final class GameController {
         } else {
             
             if(modelPlaying) {
-                fileSelectedIn()
+//                fileSelectedIn()
+                sim = Simulator(size: simSize)
+                worldSceneNode?.addChildNode(sim)
                 
             }
             
@@ -71,24 +77,33 @@ final class GameController {
         } else {
             
             if(modelPlaying) {
-                model.look()
-                model.think()
-                model.move()
-                model.show()
+//                model.look()
+//                model.think()
+//                model.move()
+//                model.show()
+//
+//                if(model.dead) {
+//                    model.removeFromParentNode()
+//                    let temp: Snake = Snake()
+//                    temp.brain = model.brain.clone()
+//                    model = temp
+//                    worldSceneNode?.addChildNode(model)
+//
+//                }
                 
-                if(model.dead) {
-                    model.removeFromParentNode()
-                    let temp: Snake = Snake()
-                    temp.brain = model.brain.clone()
-                    model = temp
-                    worldSceneNode?.addChildNode(model)
+                if(sim.done()) {
+                    sim.reset()
+                }
+                
+                else {
+                    sim.update()
+                    sim.show()
                     
                 }
             }
             
             else {
                 if(pop.done()) {
-                    pop.clear()
                     pop.removeFromParentNode()
                     pop = Population(size: popSize)
                     worldSceneNode?.addChildNode(pop)
