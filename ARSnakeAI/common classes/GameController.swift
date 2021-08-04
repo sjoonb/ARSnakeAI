@@ -7,12 +7,17 @@
 
 import SceneKit
 
-let humanPlaying: Bool = false
-let modelPlaying: Bool = true
-var hidden_nodes = 16
-var hidden_layers = 2
+var humanPlaying: Bool = false
+var modelPlaying: Bool = false
+var modelSelected: Bool = true
+let hidden_nodes = 16
+let hidden_layers = 2
 
-final class GameController {
+final class GameController: generationLabelDelegate {
+    func generationDidChange(leftValue: String) {
+        delegate?.generationDidChange(leftValue: leftValue)
+    }
+    
     private var timer: Timer!
     public var worldSceneNode: SCNNode?
 
@@ -22,8 +27,11 @@ final class GameController {
     var sim: Simulator!
     var pop: Population!
     
-    var popSize: Int = 1
-    var simSize: Int = 3
+    var popSize: Int = 30
+    var simSize: Int = 5
+    var selectedModelGeneration: Int?
+
+    weak var delegate: generationLabelDelegate?
     
     // MARK: - Game Lifecycle
     init() {
@@ -33,6 +41,10 @@ final class GameController {
         }
     }
     
+    func reset() {
+        sim.clear()
+    }
+    
     func setup() {
         if(humanPlaying) {
         
@@ -40,19 +52,19 @@ final class GameController {
             worldSceneNode?.addChildNode(snake)
             
         } else {
-            
+
             if(modelPlaying) {
-//                fileSelectedIn()
                 sim = Simulator(size: simSize)
+                worldSceneNode?.addChildNode(sim)
+                
+            } else if(modelSelected) {
+                sim = Simulator(modelGeneration: selectedModelGeneration ?? 0)
                 worldSceneNode?.addChildNode(sim)
                 
             }
             
-            else {
-                pop = Population(size: popSize)
-                worldSceneNode?.addChildNode(pop)
-                
-            }
+            sim.delegate = self
+            delegate?.generationDidChange(leftValue: String(sim.generation))
 
         }
         
@@ -77,20 +89,16 @@ final class GameController {
         } else {
             
             if(modelPlaying) {
-//                model.look()
-//                model.think()
-//                model.move()
-//                model.show()
-//
-//                if(model.dead) {
-//                    model.removeFromParentNode()
-//                    let temp: Snake = Snake()
-//                    temp.brain = model.brain.clone()
-//                    model = temp
-//                    worldSceneNode?.addChildNode(model)
-//
-//                }
+                if(sim.done()) {
+                    sim.nextGeneration()
+                }
                 
+                else {
+                    sim.update()
+                    sim.show()
+                    
+                }
+            } else if(modelSelected) {
                 if(sim.done()) {
                     sim.reset()
                 }
@@ -100,22 +108,8 @@ final class GameController {
                     sim.show()
                     
                 }
-            }
-            
-            else {
-                if(pop.done()) {
-                    pop.removeFromParentNode()
-                    pop = Population(size: popSize)
-                    worldSceneNode?.addChildNode(pop)
-                    
-                    
-                } else {
-                    pop.update()
-                    pop.show()
-                }
                 
             }
-            
         }
     }
     

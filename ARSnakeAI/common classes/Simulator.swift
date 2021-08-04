@@ -9,13 +9,28 @@ import UIKit
 import SceneKit
 
 class Simulator: SCNNode {
+    var generation = 0
     var snakes: [Snake]!
+    var colorList: [String] = ["", "", "Ivory", "", ""]
+    
+    weak var delegate: generationLabelDelegate?
     
     init(size: Int) {
         super.init()
         snakes = []
-        for _ in 0..<size {
-            let snake: Snake = fileSelectedIn()
+        for i in 0..<size {
+            if let snake: Snake = fileSelectedIn(file: String(generation) + "-" + String(i), color: colorList[i]) {
+                snakes.append(snake)
+                addChildNode(snake)
+            }
+        }
+    }
+    
+    init(modelGeneration: Int) {
+        super.init()
+        snakes = []
+        generation = modelGeneration
+        if let snake: Snake = fileSelectedIn(file: String(generation) + "-" + "0", color: colorList[0]) {
             snakes.append(snake)
             addChildNode(snake)
         }
@@ -56,11 +71,33 @@ class Simulator: SCNNode {
             snakes[i] = temp
             addChildNode(snakes[i])
         }
+        delegate?.generationDidChange(leftValue: String(generation))
     }
     
-    func fileSelectedIn()-> Snake {
-        guard let filepath = Bundle.main.path(forResource: "lifeTime50_gen19", ofType: "csv") else {
-            return Snake()
+    func clear() {
+        for i in 0..<snakes.count {
+            snakes[i].removeFromParentNode()
+            snakes[i].cleanup()
+        }
+    }
+    
+    func nextGeneration() {
+        generation += 1
+        for i in 0..<snakes.count {
+            if let snake: Snake = fileSelectedIn(file: String(generation) + "-" + String(i), color: colorList[i]) {
+                snakes[i].removeFromParentNode()
+                snakes[i] = snake
+                addChildNode(snakes[i])
+            } else {
+                generation -= 1
+            }
+        }
+        delegate?.generationDidChange(leftValue: String(generation))
+    }
+    
+    func fileSelectedIn(file: String, color: String = "")-> Snake? {
+        guard let filepath = Bundle.main.path(forResource: file, ofType: "csv") else {
+            return nil
         }
         
         var data = ""
@@ -68,7 +105,7 @@ class Simulator: SCNNode {
             data = try String(contentsOfFile: filepath)
         } catch {
             print(error)
-            return Snake()
+            return nil
         }
         var rows = data.components(separatedBy: "\n")
 
@@ -113,7 +150,7 @@ class Simulator: SCNNode {
         
         weights.append(Matrix(m: arr))
         
-        let model = Snake()
+        let model = Snake(color: color)
 //        worldSceneNode?.addChildNode(model)
         
         model.brain.load(loadedWeights: weights)

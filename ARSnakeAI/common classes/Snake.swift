@@ -38,23 +38,23 @@ class SnakeNode: SCNNode {
         case tail
     }
     
-    init(pos: PVector, type: SegmentType = .body) {
+    init(pos: PVector, type: SegmentType = .body, color: String) {
         super.init()
         switch type {
         case .body:
-            if let scene = SCNScene(named: "snakeBody.scn") {
+            if let scene = SCNScene(named: "snakeBody" + color + ".scn") {
                 if let snakeBody = scene.rootNode.childNode(withName: "snakeBody", recursively: true) {
                     addChildNode(snakeBody)
                 }
             }
         case .tail:
-            if let scene = SCNScene(named: "snakeTail.scn") {
+            if let scene = SCNScene(named: "snakeTail" + color + ".scn") {
                 if let snakeTail = scene.rootNode.childNode(withName: "snakeTail", recursively: true) {
                     addChildNode(snakeTail)
                 }
             }
         case .head:
-            if let scene = SCNScene(named: "snakeHead.scn") {
+            if let scene = SCNScene(named: "snakeHead" + color + ".scn") {
                 if let snakeBody = scene.rootNode.childNode(withName: "snakeHead", recursively: true) {
                     addChildNode(snakeBody)
                 }
@@ -73,7 +73,7 @@ class SnakeNode: SCNNode {
 class Snake: SCNNode {
     var sceneSize = 38
     
-    var direction: SnakeDirection = .down
+    var direction: SnakeDirection = .up
     
     var snakeMoved: Bool = false
     
@@ -87,6 +87,8 @@ class Snake: SCNNode {
     var bodyNodes: [SnakeNode] = []
     
     var food: Food!
+    
+    var color: String!
     
     public var dead: Bool = false {
         didSet {
@@ -118,26 +120,30 @@ class Snake: SCNNode {
     var lifeLeft = 500
     var lifeTime = 0
     
-    override init() {
+    init(color: String = "") {
         super.init()
+        self.color = color
+        
         head = PVector(0, 0)
         body = []
         vision = [Double](repeating: 0, count: 24)
         decision = [Double](repeating: 0, count: 4)
+        
         brain = NeuralNet(input: 24, hidden: hiddenNodes, output: 4, hiddenLayers: hiddenLayers)
+        
         food = Food(size: sceneSize)
         addChildNode(food)
         
-        headNode = SnakeNode(pos: head, type: .head)
+        headNode = SnakeNode(pos: head, type: .head, color: color)
         addChildNode(headNode)
         
         body.append(PVector(0, 1))
-        let bodyNode = SnakeNode(pos: body.last!)
+        let bodyNode = SnakeNode(pos: body.last!, color: color)
         addChildNode(bodyNode)
         bodyNodes.append(bodyNode)
         
         body.append(PVector(0, 2))
-        let tailNode = SnakeNode(pos: body.last!, type: .tail)
+        let tailNode = SnakeNode(pos: body.last!, type: .tail, color: color)
         addChildNode(tailNode)
         bodyNodes.append(tailNode)
         
@@ -150,7 +156,6 @@ class Snake: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
     func move() {
         if(!dead) {
             shiftBody()
@@ -239,7 +244,7 @@ class Snake: SCNNode {
 
         pos = PVector(body[len].x, body[len].y)
         body.append(pos)
-        snakeNode = SnakeNode(pos: pos)
+        snakeNode = SnakeNode(pos: pos, color: self.color)
         addChildNode(snakeNode)
         bodyNodes.append(snakeNode)
         
