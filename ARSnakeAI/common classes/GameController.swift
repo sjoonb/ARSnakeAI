@@ -8,10 +8,15 @@
 import SceneKit
 
 var humanPlaying: Bool = false
-var modelPlaying: Bool = false
-var modelSelected: Bool = true
+var modelPlaying: Bool = true
+var modelSelected: Bool = false
 let hidden_nodes = 16
 let hidden_layers = 2
+
+protocol generationLabelDelegate: AnyObject {
+    func generationDidChange(leftValue: String)
+}
+
 
 final class GameController: generationLabelDelegate {
     func generationDidChange(leftValue: String) {
@@ -25,9 +30,7 @@ final class GameController: generationLabelDelegate {
     var model: Snake!
     
     var sim: Simulator!
-    var pop: Population!
-    
-    var popSize: Int = 30
+
     var simSize: Int = 5
     var selectedModelGeneration: Int?
 
@@ -35,7 +38,7 @@ final class GameController: generationLabelDelegate {
     
     // MARK: - Game Lifecycle
     init() {
-        if let worldScene = SCNScene(named: "worldScene2.scn") {
+        if let worldScene = SCNScene(named: "worldScene.scn") {
             worldSceneNode = worldScene.rootNode.childNode(withName: "worldScene", recursively: true)
             worldSceneNode?.removeFromParentNode()
         }
@@ -197,4 +200,13 @@ final class GameController: generationLabelDelegate {
         
     }
     
+}
+
+extension SCNNode {
+    func cleanup() {
+        for child in childNodes {
+            child.cleanup()
+        }
+        geometry = nil
+    }
 }

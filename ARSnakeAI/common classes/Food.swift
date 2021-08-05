@@ -14,7 +14,7 @@ class Food: SCNNode {
     // MARK: - Lifecycle
     init(size: Int) {
         super.init()
-        if let scene = SCNScene(named: "mushroom.scn"), let mushroomNode = scene.rootNode.childNode(withName: "mushroom", recursively: true) {
+        if let scene = SCNScene(named: "food.scn"), let mushroomNode = scene.rootNode.childNode(withName: "food", recursively: true) {
             addChildNode(mushroomNode)
         }
         sceneSize = size

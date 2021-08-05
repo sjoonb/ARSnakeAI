@@ -62,7 +62,7 @@ class SnakeNode: SCNNode {
         }
     
         position = SCNVector3(Float(pos.x), Float(0.5), Float(pos.y))
-    }
+    } 
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
