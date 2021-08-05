@@ -10,8 +10,7 @@ import SceneKit
 class Food: SCNNode {
     var pos: PVector!
     var sceneSize: Int!
-    
-    // MARK: - Lifecycle
+
     init(size: Int) {
         super.init()
         if let scene = SCNScene(named: "food.scn"), let mushroomNode = scene.rootNode.childNode(withName: "food", recursively: true) {

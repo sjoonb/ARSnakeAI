@@ -29,7 +29,6 @@ enum SnakeDirection: Int {
     }
 }
 
-
 class SnakeNode: SCNNode {
     
     enum SegmentType: Int {
@@ -71,24 +70,38 @@ class SnakeNode: SCNNode {
 }
 
 class Snake: SCNNode {
-    var sceneSize = 38
     
-    var direction: SnakeDirection = .up
+    // MARK: - Prpoerties Snake
+    var sceneSize = 38
     
     var snakeMoved: Bool = false
     
+    var direction: SnakeDirection = .up
+
     var xVel: Int32 = 0
     var yVel: Int32 = 0
     
     var head: PVector!
-    var body: [PVector]!
-    
     var headNode: SnakeNode!
+    
+    var body: [PVector]!
     var bodyNodes: [SnakeNode] = []
     
     var food: Food!
     
     var color: String!
+    
+    // MARK: - Properties of snake AI
+    
+    var vision: [Double]!
+    var decision: [Double]!
+    
+    var brain: NeuralNet!
+ 
+    var lifeLeft = 500
+    var lifeTime = 0
+    
+    // MARK: - LifeCycle
     
     public var dead: Bool = false {
         didSet {
@@ -97,8 +110,6 @@ class Snake: SCNNode {
             addChildNode(smoke)
             smoke.position = food.position
             smoke.addParticleSystem(SCNParticleSystem(named: "smoke-spread", inDirectory: nil)!)
-            
-//            food.addParticleSystem(SCNParticleSystem(named: "crashed-snake", inDirectory: nil)!)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 self.food.removeFromParentNode()
                 smoke.removeFromParentNode()
@@ -106,19 +117,6 @@ class Snake: SCNNode {
             runCrashAnimation()
         }
     }
-    
-    // MARK: - Snake AI prpoerties
-    
-    var vision: [Double]!
-    var decision: [Double]!
-    
-    var brain: NeuralNet!
-    
-    var hiddenNodes: Int = 16
-    var hiddenLayers: Int = 2
-    
-    var lifeLeft = 500
-    var lifeTime = 0
     
     init(color: String = "") {
         super.init()
@@ -233,8 +231,6 @@ class Snake: SCNNode {
         
         
         // Configure tail node to last node
-
-        
         let tailPos = body.popLast()
         let tailNode = bodyNodes.popLast()
         
@@ -299,23 +295,7 @@ class Snake: SCNNode {
             }
         }
     }
-    
-    func turnLeft() {
-        let t = (direction.rawValue - 1 + 4) % 4
-        direction = SnakeDirection(rawValue: t)!
-        xVel = direction.asInt2.x
-        yVel = direction.asInt2.y
-        snakeMoved = true
-    }
-    
-    func turnRight() {
-        let t = (direction.rawValue + 1) % 4
-        direction = SnakeDirection(rawValue: t)!
-        xVel = direction.asInt2.x
-        yVel = direction.asInt2.y
-        snakeMoved = true
-    }
-    
+
     func runCrashAnimation() {
         if let headNode = self.headNode,
             let particle = SCNParticleSystem(named: "smoke-spread", inDirectory: nil) {
@@ -415,7 +395,7 @@ class Snake: SCNNode {
     }
 
     
-    //MARK: - Snake's move
+    //MARK: - Actions
     
     func moveUp() {
         if(direction != SnakeDirection.down) {
@@ -448,5 +428,22 @@ class Snake: SCNNode {
             yVel = direction.asInt2.y
         }
     }
+    
+    func turnLeft() {
+        let t = (direction.rawValue - 1 + 4) % 4
+        direction = SnakeDirection(rawValue: t)!
+        xVel = direction.asInt2.x
+        yVel = direction.asInt2.y
+        snakeMoved = true
+    }
+    
+    func turnRight() {
+        let t = (direction.rawValue + 1) % 4
+        direction = SnakeDirection(rawValue: t)!
+        xVel = direction.asInt2.x
+        yVel = direction.asInt2.y
+        snakeMoved = true
+    }
+    
     
 }
